@@ -2678,8 +2678,8 @@ function make()
 
 function chromium_prebuilt() {
     T=$(gettop)
-    hash1=$T/prebuilts/chromium/$MK_BUILD/hash_chromium.txt
-    hash2=$T/prebuilts/chromium/$MK_BUILD/hash_webview.txt
+    hash1=$T/prebuilts/chromium/$CM_BUILD/hash_chromium.txt
+    hash2=$T/prebuilts/chromium/$CM_BUILD/hash_webview.txt
 
     if [ -r $hash1 ] && [ -r $hash2 ] && [ $(git --git-dir=$T/external/chromium_org/.git --work-tree=$T/external/chromium_org rev-parse --verify HEAD) == $(cat $hash1) ] &&
     [ $(git --git-dir=$T/frameworks/webview/.git --work-tree=$T/frameworks/webview rev-parse --verify HEAD) == $(cat $hash2) ]; then

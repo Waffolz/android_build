@@ -17,10 +17,10 @@
 # This works, but there has to be a better way of reliably getting the root build directory...
 if [ $# -eq 1 ]; then
     TOP=$1
-    DEVICE=$MK_BUILD
+    DEVICE=$CM_BUILD
 elif [ -n "$(gettop)" ]; then
     TOP=$(gettop)
-    DEVICE=$MK_BUILD
+    DEVICE=$CM_BUILD
 else
     echo "Please run envsetup.sh and lunch before running this script,"
     echo "or provide the build root directory as the first parameter."
@@ -35,7 +35,7 @@ if [ -d $PREBUILT_DIR ]; then
     rm -rf $PREBUILT_DIR
 fi
 
-if [ "$MK_CPU_ABI" == "arm64-v8a" ]; then
+if [ "$CM_CPU_ABI" == "arm64-v8a" ]; then
     mkdir -p $PREBUILT_DIR/lib
     mkdir -p $PREBUILT_DIR/lib64
 else
@@ -46,7 +46,7 @@ if [ -d $TARGET_DIR ]; then
     echo "Copying files..."
     cp -r $TARGET_DIR/system/app/webview $PREBUILT_DIR
     rm -r $PREBUILT_DIR/webview/lib
-    if [ "$MK_CPU_ABI" = "arm64-v8a" ]; then
+    if [ "$CM_CPU_ABI" = "arm64-v8a" ]; then
         cp $TARGET_DIR/system/lib/libwebviewchromium*.so $PREBUILT_DIR/lib
         cp $TARGET_DIR/system/lib64/libwebviewchromium*.so $PREBUILT_DIR/lib64
     else
@@ -83,7 +83,7 @@ LOCAL_PATH := prebuilts/chromium/$DEVICE
 
 EOF
 
-if [ "$MK_CPU_ABI" == "arm64-v8a" ]; then
+if [ "$CM_CPU_ABI" == "arm64-v8a" ]; then
 cat >> $PREBUILT_DIR/chromium_prebuilt.mk <<EOF
 STUB := \$(shell mkdir -p out/target/product/$DEVICE/system/app/webview/lib/arm; \\
     mkdir -p out/target/product/$DEVICE/system/app/webview/lib/arm64; \\
